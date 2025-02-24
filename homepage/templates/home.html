@@ -1,0 +1,419 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+We Can Project - Home
+{% endblock %}
+
+{% block content %}
+    <div class="banner-message text-center py-4 text-white">
+        <div class="container">
+            <p class="mb-0 banner-text">
+                From Cans to Change: <span class="highlight">Redeeming Lives</span> and <span class="highlight">Creating Value Beyond the Nickel</span> for a Cleaner, Greener Future.
+            </p>
+        </div>
+    </div>
+
+    <div class="hero-section d-flex justify-content-center align-items-center">
+        <div class="text-center mt-5">
+            <h3 class="display-3 font-weight-bold">Smart Waste Management System</h3>
+            <p class="lead mb-4">Recycle Better with SWMS</p>
+            <p class="slogan">Donate. Recycle. Empower Communities.</p>
+        <p class="slogan">Give Back to the Planet and the People.</p>
+            <div class="button-group">
+                <a href="{% url 'login' %}" class="btn btn-outline-dark btn-lg me-2 mb-5">Login</a>
+                <a href="{% url 'register' %}" class="btn btn-dark btn-lg mb-5">Get Started!</a>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="features__inner p-relative z-index-1 white-bg">
+            <div class="row justify-content-center">
+
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
+                <div class="card p-6 h-100">
+                     <img src="{% static 'img/How it works.jpg' %}" width="42" height="265" class="card-img-top" alt="...">
+                    <div class="card-body">
+                     <h5 class="card-title">How it works</h5>
+                    <p class="card-text">SWMS App makes recycling simple and rewarding. Register and log in to receive a unique QR code. Schedule a convenient pickup or drop-off time for your cans and bottles. Our team ensures efficient collection, tracks your recycling history, and updates your account balance, allowing you to redeem rewards effortlessly.</p>
+                        <a class="btn btn-primary {% if request.path == '/works/' %}active{% endif %}" href="/works/">How It Works</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
+          <div class="card p-6 h-100">
+            <img src="{% static 'img/Vision and mission.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Vision and Mission</h5>
+              <p class="card-text">Our vision is a sustainable future where recycling is second nature to everyone. We aim to empower communities with a user-friendly platform to maximize recycling efforts, reduce waste, and protect our planet for generations to come. Together, we strive to make eco-friendly living easy and accessible.<br></p>
+              <a class="btn btn-primary {% if request.path == '/works/' %}active{% endif %}" href="#">Vision and Mission</a>
+            </div>
+          </div>
+        </div>
+          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
+          <div class="card p-6 h-100">
+            <img src="{% static 'img/Schedule.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Schedule a Pickup</h5>
+              <p class="card-text">Save time and effort with our hassle-free pickup service. Choose a time that works best for you, and our team will collect your recyclables from your doorstep. Just scan your QR code during pickup, and let us handle the rest while you track your progress and rewards.<br></p>
+              <a class="btn btn-primary {% if request.path == '/schedule/' %}active{% endif %}" href="/schedule/">Schedule a Pickup</a>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+</div>
+    <div class="container feedback-section mt-5">
+        <h2 class="text-center mb-5">Customer Feedback</h2>
+        <div class="row justify-content-center ">
+            <div class="col-md-3">
+                <div class="card text-center p-3">
+                    <i class="bi bi-person-circle customer-icon mx-auto"></i>
+                    <h5 class="card-title mt-3">Sarah M.</h5>
+                    <p class="card-text">"Super Convenient Service!"</p>
+                    <p class="card-text text-muted">"I love how easy it is to schedule a pickup! I don’t have to worry about returning cans myself anymore. 
+                        The process was seamless, and the payment was quick. Highly recommended!"</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center p-3">
+                    <i class="bi bi-person-circle customer-icon mx-auto"></i>
+                    <h5 class="card-title mt-3">James L.</h5>
+                    <p class="card-text">"I Love Helping the Environment"</p>
+                    <p class="card-text text-muted">"I was skeptical at first, but  has made recycling my cans and bottles effortless. 
+                        I get my refunds without the hassle of waiting in long lines. A great initiative for sustainability!"</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center p-3">
+                    <i class="bi bi-person-circle customer-icon mx-auto"></i>
+                    <h5 class="card-title mt-3">Maria R.</h5>
+                    <p class="card-text">"Perfect for Busy People!"</p>
+                    <p class="card-text text-muted">"As a mother of two, I don’t have time to go to a redemption center. 
+                        ’s pickup service is a game-changer! I just schedule a pickup, leave the bags outside, and get paid. 
+                        So easy and stress-free!"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+<div class="faq-section text-center text-white py-5" style="background-color: #1a3a7e;">
+    <div class="container">
+        <h2 class="display-4 mb-4">FAQs</h2>
+
+        <div class="faq-item mb-5">
+            <h3 class="faq-question">What does the "MA 5¢" label mean?</h3>
+            <p class="faq-answer">
+                This label indicates that the container is eligible for redemption in Massachusetts. Consumers pay a deposit of 5 cents when they purchase beverages in marked containers. This deposit can be refunded when the container is returned to a participating redemption center.
+            </p>
+        </div>
+
+        <div class="faq-item mb-5">
+            <h3 class="faq-question">How can I get my 5¢ deposit back?</h3>
+            <p class="faq-answer">
+                You can get your refund by returning eligible containers to a redemption center or through 's convenient pickup service in Central Massachusetts. Schedule a pickup with , and we'll collect your recyclables right from your doorstep. We process payments promptly after collection, making it easy for you to get your deposit back without leaving home.
+            </p>
+        </div>
+
+        <div class="mt-4">
+            <a href="{% url 'works' %}" class="text-warning font-weight-bold">Learn More</a>
+        </div>
+    </div>
+</div>
+
+<div class="schedule-pickup-section text-center text-white">
+    <div class="container py-5">
+        <h2 class="display-4 mb-3">Schedule a Pickup!</h2>
+        <p class="lead mb-4">
+            Residents of Central Massachusetts - Schedule a pickup with  LLC to have your recyclable materials collected right from your doorstep. Enjoy the convenience of recycling at home while contributing to a greener community. Payments are processed promptly upon collection!
+        </p>
+        <a href="{% url 'schedule' %}" class="btn btn-lg schedule-btn">SCHEDULE PICKUP!</a>
+    </div>
+</div>
+<br>
+{% endblock %}
+
+{% block styles %}
+<style>
+
+    .slogan {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+    .banner-message {
+        background-color: #28a745; 
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+        font-size: 1.5rem; 
+        font-weight: 500; 
+        border-bottom: 4px solid #1e7e34; 
+    }
+
+    .banner-text {
+        font-size: 1.25rem; 
+        line-height: 1.8; 
+        margin: 0 auto;
+    }
+
+    .highlight {
+        font-weight: bold; 
+        color: #ffffff; 
+        background-color: rgba(255, 255, 255, 0.2); 
+        padding: 0 5px;
+        border-radius: 5px; 
+    }
+
+    .card-img-top {
+        width: 50%%;
+        height: 50%%;
+        margin: 3px;
+        transition: transform 0.3s ease, opacity 0.3s ease; /* Added */
+        opacity: 0;
+        animation: fadeIn 1s ease-in forwards;
+    }
+    @keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+    .card-img-top:hover {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+
+    .card-body {
+        flex: 1; /* Fills available vertical space */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added */
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .features__inner {
+        border-radius: 10px;
+        margin-top: -70px;
+        padding: 40px 60px 10px;
+        -ms-box-shadow: 0 30px 50px rgba(26, 31, 35, .07);
+        -o-box-shadow: 0 30px 50px rgba(26, 31, 35, .07);
+        box-shadow: 0 30px 50px rgba(26, 31, 35, .07);
+    }
+
+    .white-bg {
+        background: white;
+    }
+
+    .p-relative {
+        position: relative;
+    }
+
+    .z-index-1 {
+        z-index: 1;
+    }
+
+    .hero-section {
+        height: 100vh;
+        background: url("{% static 'img/image.png' %}") no-repeat center center;
+        background-size: cover;
+        background-attachment: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid #dee2e6;
+        transition: background-color 0.3s ease; /* Added */
+    }
+    .hero-section:hover {
+        background-color: rgba(0, 0, 0, 0.4); /* Overlay effect on hover */
+    }
+
+    .hero-section h3 {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        transition: opacity 0.5s ease, transform 0.5s ease; /* Added */
+    }
+
+    .hero-section p {
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-bottom: 30px;
+        transition: opacity 0.5s ease, transform 0.5s ease; /* Added */
+    }
+
+
+
+    .hero-section:hover h1,
+    .hero-section:hover p {
+        transform: translateY(-10px);
+        opacity: 1;
+    }
+
+    .button-group a {
+        margin: 0 10px;
+        padding: 10px 20px;
+        transition: all 0.3s ease; /* Added */
+    }
+    .button-group a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .feedback-section h2 {
+        font-weight: bold;
+    }
+
+    .customer-icon {
+        font-size: 80px;
+        color: #6c757d;
+        margin-bottom: 20px;
+        transition: transform 0.3s ease; /* Added */
+    }
+    .customer-icon:hover {
+        transform: scale(1.2);
+        color: #28a745;
+    }
+
+    .card {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        border: none;
+        border-radius: 10px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added */
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        margin-bottom: 10px;
+    }
+
+    .card-text {
+        font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            height: auto;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+        }
+
+        .hero-section p {
+            font-size: 1.25rem;
+        }
+
+        .feedback-section h2 {
+            font-size: 1.5rem;
+        }
+        .d-sm-flex {
+            display: flex !important;
+        }
+        .banner-message {
+            font-size: 1.2rem; 
+            padding: 15px 0;
+        }
+
+        .banner-text {
+            font-size: 1rem; 
+            max-width: 90%; 
+        }
+    }
+
+    .schedule-pickup-section {
+        background: url("{% static 'img/background2.png' %}") no-repeat center center;
+        background-size: cover;
+        position: relative;
+        color: white;
+        transition: background-color 0.5s ease; /* Added */
+    }
+    .schedule-pickup-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+
+    .schedule-pickup-section:hover {
+        background-color: rgba(0, 0, 0, 0.7); /* Darkens background overlay */
+    }
+
+    .schedule-pickup-section .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .schedule-btn {
+        background-color: #28a745;
+        color: white;
+        font-weight: bold;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, transform 0.3s ease; /* Added */
+    }
+    .schedule-btn:hover {
+        background-color: #218838;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .faq-section {
+        background-color: #2e8b57 !important;
+        color: #ffffff;
+        padding: 50px 0;
+        transition: background-color 0.5s ease; /* Added */
+    }
+
+    .faq-section:hover {
+        background-color: #246b45; /* Slightly darkened on hover */
+    }
+
+    .faq-section h2 {
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .faq-item {
+        margin-bottom: 30px;
+    }
+
+    .faq-question {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ffffff;
+        margin-bottom: 10px;
+        transition: color 0.3s ease; /* Added */
+    }
+
+    .faq-question:hover {
+        color: #ffcc00; /* Highlighted color */
+    }
+
+    .faq-answer {
+        font-size: 1rem;
+        color: #d1d1d1 !important;
+        max-width: 700px;
+        margin: 0 auto;
+        transition: max-height 0.5s ease, opacity 0.5s ease; /* Added */
+    }
+
+    .faq-item:hover .faq-answer {
+        max-height: 200px;
+        opacity: 1;
+    }
+</style>
+{% endblock %}
+
