@@ -26,112 +26,7 @@ We Can Project - Home
             </div>
         </div>
     </div>
-    <div class="container mt-5">
-        <div class="features__inner p-relative z-index-1 white-bg">
-            <div class="row justify-content-center">
-
-                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
-                <div class="card p-6 h-100">
-                     <img src="{% static 'img/How it works.jpg' %}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                     <h5 class="card-title">How it works</h5>
-                    <p class="card-text">SWMS App makes recycling simple and rewarding. Register and log in to receive a unique QR code. Schedule a convenient pickup or drop-off time for your cans and bottles. Our team ensures efficient collection, tracks your recycling history, and updates your account balance, allowing you to redeem rewards effortlessly.</p>
-                        <a class="btn btn-primary {% if request.path == '/works/' %}active{% endif %}" href="/works/">How It Works</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
-          <div class="card p-6 h-100">
-            <img src="{% static 'img/Vision and mission.jpg' %}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Vision and Mission</h5>
-              <p class="card-text">Our vision is a sustainable future where recycling is second nature to everyone. We aim to empower communities with a user-friendly platform to maximize recycling efforts, reduce waste, and protect our planet for generations to come. Together, we strive to make eco-friendly living easy and accessible.<br></p>
-              <a class="btn btn-primary {% if request.path == '/works/' %}active{% endif %}" href="#">Vision and Mission</a>
-            </div>
-          </div>
-        </div>
-          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
-          <div class="card p-6 h-100">
-            <img src="{% static 'img/Schedule.jpg' %}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Schedule a Pickup</h5>
-              <p class="card-text">Save time and effort with our hassle-free pickup service. Choose a time that works best for you, and our team will collect your recyclables from your doorstep. Just scan your QR code during pickup, and let us handle the rest while you track your progress and rewards.<br></p>
-              <a class="btn btn-primary {% if request.path == '/schedule/' %}active{% endif %}" href="/schedule/">Schedule a Pickup</a>
-            </div>
-          </div>
-        </div>
-    </div>
-</div>
-</div>
-    <div class="container feedback-section mt-5">
-        <h2 class="text-center mb-5">Customer Feedback</h2>
-        <div class="row justify-content-center ">
-            <div class="col-md-3">
-                <div class="card text-center p-3">
-                    <i class="bi bi-person-circle customer-icon mx-auto"></i>
-                    <h5 class="card-title mt-3">Sarah M.</h5>
-                    <p class="card-text">"Super Convenient Service!"</p>
-                    <p class="card-text text-muted">"I love how easy it is to schedule a pickup! I don’t have to worry about returning cans myself anymore. 
-                        The process was seamless, and the payment was quick. Highly recommended!"</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center p-3">
-                    <i class="bi bi-person-circle customer-icon mx-auto"></i>
-                    <h5 class="card-title mt-3">James L.</h5>
-                    <p class="card-text">"I Love Helping the Environment"</p>
-                    <p class="card-text text-muted">"I was skeptical at first, but  has made recycling my cans and bottles effortless. 
-                        I get my refunds without the hassle of waiting in long lines. A great initiative for sustainability!"</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center p-3">
-                    <i class="bi bi-person-circle customer-icon mx-auto"></i>
-                    <h5 class="card-title mt-3">Maria R.</h5>
-                    <p class="card-text">"Perfect for Busy People!"</p>
-                    <p class="card-text text-muted">"As a mother of two, I don’t have time to go to a redemption center. 
-                        ’s pickup service is a game-changer! I just schedule a pickup, leave the bags outside, and get paid. 
-                        So easy and stress-free!"</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-<div class="faq-section text-center text-white py-5" style="background-color: #1a3a7e;">
-    <div class="container">
-        <h2 class="display-4 mb-4">FAQs</h2>
-
-        <div class="faq-item mb-5">
-            <h3 class="faq-question">What does the "MA 5¢" label mean?</h3>
-            <p class="faq-answer">
-                This label indicates that the container is eligible for redemption in Massachusetts. Consumers pay a deposit of 5 cents when they purchase beverages in marked containers. This deposit can be refunded when the container is returned to a participating redemption center.
-            </p>
-        </div>
-
-        <div class="faq-item mb-5">
-            <h3 class="faq-question">How can I get my 5¢ deposit back?</h3>
-            <p class="faq-answer">
-                You can get your refund by returning eligible containers to a redemption center or through 's convenient pickup service in Central Massachusetts. Schedule a pickup with , and we'll collect your recyclables right from your doorstep. We process payments promptly after collection, making it easy for you to get your deposit back without leaving home.
-            </p>
-        </div>
-
-        <div class="mt-4">
-            <a href="{% url 'works' %}" class="text-warning font-weight-bold">Learn More</a>
-        </div>
-    </div>
-</div>
-
-<div class="schedule-pickup-section text-center text-white">
-    <div class="container py-5">
-        <h2 class="display-4 mb-3">Schedule a Pickup!</h2>
-        <p class="lead mb-4">
-            Residents of Central Massachusetts - Schedule a pickup with  LLC to have your recyclable materials collected right from your doorstep. Enjoy the convenience of recycling at home while contributing to a greener community. Payments are processed promptly upon collection!
-        </p>
-        <a href="{% url 'schedule' %}" class="btn btn-lg schedule-btn">SCHEDULE PICKUP!</a>
-    </div>
-</div>
-<br>
+           
 {% endblock %}
 
 {% block styles %}
@@ -167,8 +62,8 @@ We Can Project - Home
     }
 
     .card-img-top {
-        width: 360px;
-        height: 300px;
+        width: 50%%;
+        height: 50%%;
         margin: 3px;
         transition: transform 0.3s ease, opacity 0.3s ease; /* Added */
         opacity: 0;
