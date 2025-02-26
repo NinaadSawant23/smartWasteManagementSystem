@@ -111,6 +111,7 @@
       <header class="top-bar">
         <div class="container d-flex justify-content-end align-items-center">
           {% if user.is_authenticated %}
+          <span class="me-3 text-muted">Hello, <strong>{{ user.username }}</strong></span>
           <form method="POST" action="{% url 'logout' %}">
             {% csrf_token %}
             <button
