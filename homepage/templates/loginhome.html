@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+We Can Project - Home
+{% endblock %}
+
+{% block content %}
+    <div class="banner-message text-center py-4 text-white">
+        <div class="container">
+            <p class="mb-0 banner-text">
+                From Cans to Change: <span class="highlight">Redeeming Lives</span> and <span class="highlight">Creating Value Beyond the Nickel</span> for a Cleaner, Greener Future.
+            </p>
+        </div>
+    </div>
+
+    <div class="hero-section d-flex justify-content-center align-items-center">
+        <div class="text-center mt-5">
+            <h3 class="display-3 font-weight-bold">Smart Waste Management System</h3>
+            <p class="lead mb-4">Recycle Better with SWMS</p>
+            <p class="slogan">Donate. Recycle. Empower Communities.</p>
+        <p class="slogan">Give Back to the Planet and the People.</p>
+        </div>
+    </div>
+           
+{% endblock %}
+
+{% block styles %}
+<style>
+
+    .slogan {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+    .banner-message {
+        background-color: #28a745; 
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+        font-size: 1.5rem; 
+        font-weight: 500; 
+        border-bottom: 4px solid #1e7e34; 
+    }
+
+    .banner-text {
+        font-size: 1.25rem; 
+        line-height: 1.8; 
+        margin: 0 auto;
+    }
+
+    .highlight {
+        font-weight: bold; 
+        color: #ffffff; 
+        background-color: rgba(255, 255, 255, 0.2); 
+        padding: 0 5px;
+        border-radius: 5px; 
+    }
+
+    .card-img-top {
+        width: 50%%;
+        height: 50%%;
+        margin: 3px;
+        transition: transform 0.3s ease, opacity 0.3s ease; /* Added */
+        opacity: 0;
+        animation: fadeIn 1s ease-in forwards;
+    }
+    @keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+    .card-img-top:hover {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+
+    .card-body {
+        flex: 1; /* Fills available vertical space */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added */
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .features__inner {
+        border-radius: 10px;
+        margin-top: -70px;
+        padding: 40px 60px 10px;
+        -ms-box-shadow: 0 30px 50px rgba(26, 31, 35, .07);
+        -o-box-shadow: 0 30px 50px rgba(26, 31, 35, .07);
+        box-shadow: 0 30px 50px rgba(26, 31, 35, .07);
+    }
+
+    .white-bg {
+        background: white;
+    }
+
+    .p-relative {
+        position: relative;
+    }
+
+    .z-index-1 {
+        z-index: 1;
+    }
+
+    .hero-section {
+        height: 100vh;
+        background: url("{% static 'img/image.png' %}") no-repeat center center;
+        background-size: cover;
+        background-attachment: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid #dee2e6;
+        transition: background-color 0.3s ease; /* Added */
+    }
+    .hero-section:hover {
+        background-color: rgba(0, 0, 0, 0.4); /* Overlay effect on hover */
+    }
+
+    .hero-section h3 {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        transition: opacity 0.5s ease, transform 0.5s ease; /* Added */
+    }
+
+    .hero-section p {
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-bottom: 30px;
+        transition: opacity 0.5s ease, transform 0.5s ease; /* Added */
+    }
+
+
+
+    .hero-section:hover h1,
+    .hero-section:hover p {
+        transform: translateY(-10px);
+        opacity: 1;
+    }
+
+    .button-group a {
+        margin: 0 10px;
+        padding: 10px 20px;
+        transition: all 0.3s ease; /* Added */
+    }
+    .button-group a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .feedback-section h2 {
+        font-weight: bold;
+    }
+
+    .customer-icon {
+        font-size: 80px;
+        color: #6c757d;
+        margin-bottom: 20px;
+        transition: transform 0.3s ease; /* Added */
+    }
+    .customer-icon:hover {
+        transform: scale(1.2);
+        color: #28a745;
+    }
+
+    .card {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        border: none;
+        border-radius: 10px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added */
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        margin-bottom: 10px;
+    }
+
+    .card-text {
+        font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            height: auto;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+        }
+
+        .hero-section p {
+            font-size: 1.25rem;
+        }
+
+        .feedback-section h2 {
+            font-size: 1.5rem;
+        }
+        .d-sm-flex {
+            display: flex !important;
+        }
+        .banner-message {
+            font-size: 1.2rem; 
+            padding: 15px 0;
+        }
+
+        .banner-text {
+            font-size: 1rem; 
+            max-width: 90%; 
+        }
+    }
+
+    .schedule-pickup-section {
+        background: url("{% static 'img/background2.png' %}") no-repeat center center;
+        background-size: cover;
+        position: relative;
+        color: white;
+        transition: background-color 0.5s ease; /* Added */
+    }
+    .schedule-pickup-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+
+    .schedule-pickup-section:hover {
+        background-color: rgba(0, 0, 0, 0.7); /* Darkens background overlay */
+    }
+
+    .schedule-pickup-section .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .schedule-btn {
+        background-color: #28a745;
+        color: white;
+        font-weight: bold;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, transform 0.3s ease; /* Added */
+    }
+    .schedule-btn:hover {
+        background-color: #218838;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .faq-section {
+        background-color: #2e8b57 !important;
+        color: #ffffff;
+        padding: 50px 0;
+        transition: background-color 0.5s ease; /* Added */
+    }
+
+    .faq-section:hover {
+        background-color: #246b45; /* Slightly darkened on hover */
+    }
+
+    .faq-section h2 {
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .faq-item {
+        margin-bottom: 30px;
+    }
+
+    .faq-question {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ffffff;
+        margin-bottom: 10px;
+        transition: color 0.3s ease; /* Added */
+    }
+
+    .faq-question:hover {
+        color: #ffcc00; /* Highlighted color */
+    }
+
+    .faq-answer {
+        font-size: 1rem;
+        color: #d1d1d1 !important;
+        max-width: 700px;
+        margin: 0 auto;
+        transition: max-height 0.5s ease, opacity 0.5s ease; /* Added */
+    }
+
+    .faq-item:hover .faq-answer {
+        max-height: 200px;
+        opacity: 1;
+    }
+</style>
+{% endblock %}
