@@ -4,11 +4,19 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-@login_required
+
 def home(request):
     return render(request, "home.html", {})
+
+
+@login_required
+def loginhome(request):
+    return render(request, "loginhome.html", {})
+
+
 def register(request):
     return render(request, "home.html", {})
+
 
 def custom_login(request):
     form = AuthenticationForm(request, data=request.POST or None)
@@ -21,7 +29,7 @@ def custom_login(request):
 
         if user:
             login(request, user)
-            return redirect('homepage')  # Redirect all users to profile page
+            return redirect('loginhome')  # Redirect all users to profile page
 
         else:
             messages.error(request, "Invalid username or password. Please try again.")
