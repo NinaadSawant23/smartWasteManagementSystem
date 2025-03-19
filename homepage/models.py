@@ -13,7 +13,17 @@ class Subscriber(models.Model):
     zip_code = models.CharField(max_length=10, default="00000")  
     payment_method = models.CharField(max_length=10, default="paypal")  
     created_at = models.DateTimeField(auto_now_add=True)
-    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
 
     def _str_(self):
         return self.fname
+
+
+class ContactSubmission(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField()
+    message = models.TextField()
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} - {self.email}"
