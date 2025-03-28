@@ -1,11 +1,14 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
+from django.db import models
 from .forms import ContactForm
 from homepage.forms import UserRegistrationForm
-from .models import ContactSubmission
+from .models import ContactSubmission, Subscriber, AccountBalance
+from django.db.models import Sum
 
 
 def home(request):
@@ -33,8 +36,10 @@ def register(request):
         'subscriber_form': subscriber_form
     })
 
+
 def who(request):
     return render(request, 'who.html')
+
 
 def custom_login(request):
     form = AuthenticationForm(request, data=request.POST or None)
@@ -71,3 +76,34 @@ def contact_view(request):
         form = ContactForm()
 
     return render(request, 'contact.html', {'form': form})
+
+
+@login_required
+def schedule(request):
+    return render(request, 'schedule.html')
+
+
+def pickuphistory(request):
+    return render(request, 'pickuphistory.html')
+
+
+@login_required
+def profile(request):
+    subscriber = get_object_or_404(Subscriber, account_id=request.user.id)
+
+    subscriber.refresh_from_db()
+
+    total_points = subscriber.recycling_history.aggregate(
+        total_points=Sum('points_earned')
+    )['total_points'] or 0
+
+    if hasattr(subscriber, 'account_balance'):
+        subscriber.account_balance.balance = round(total_points, 2)
+        subscriber.account_balance.save()
+    else:
+        subscriber.account_balance = AccountBalance.objects.create(
+            subscriber=subscriber, balance=round(total_points, 2)
+        )
+
+    return render(request, 'profile.html', {'subscriber': subscriber})
+

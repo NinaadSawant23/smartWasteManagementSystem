@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Pickup History | We Can Project
+{% endblock %}
+
+{% block content %}
+    <div class="history-section">
+            <h4>Recycling History</h4>
+            <ul>
+                {% for history in subscriber.recycling_history.all %}
+                    <li>
+                        <strong>Date:</strong> {{ history.date }} |
+                        <strong>Items Recycled:</strong> {{ history.items_recycled }} |
+                        <strong>Points Earned:</strong> {{ history.points_earned }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+<style>
+    .history-section {
+        padding: 20px;
+        border-bottom: 1px solid #ddd;
+    }
+</style>
+{% endblock %}

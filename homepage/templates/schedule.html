@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Schedule | We Can Project
+{% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .schedule-container {
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        .schedule-option {
+            padding: 20px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 18px;
+            color: #00cc00;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .schedule-option:hover {
+            background-color: #00cc00;
+            color: white;
+        }
+        hr {
+            margin: 20px 0;
+            border: 0;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+    <div class="schedule-container">
+        <div class="schedule-option" onclick="location.href='/request-pickup/'">Request Pickup</div>
+        <hr>
+        <div class="schedule-option" onclick="location.href='/profile/'">Pickup History</div>
+        <hr>
+        <div class="schedule-option" onclick="location.href='/settings/'">Settings</div>
+        <hr>
+    </div>
+{% endblock %}

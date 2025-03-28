@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+We Can Project - Profile
+{% endblock %}
+
+{% block content %}
+<div class="profile-page">
+    <div class="container">
+        <div class="header">
+            <h2
+            >Welcome, {{ subscriber.fname }} {{ subscriber.lname }}</h2>
+        </div>
+        <div class="profile-section">
+            <h4>Profile Information</h4>
+            <p><strong>Account ID:</strong> {{ subscriber.account_id }}</p>
+            <p><strong>Email:</strong> {{ subscriber.email }}</p>
+            <p><strong>Phone:</strong> {{ subscriber.phone }}</p>
+            <p><strong>Account Created On:</strong> {{ subscriber.created_at }}</p>
+        </div>
+        <div class="history-section">
+            <h4>Recycling History</h4>
+            <ul>
+                {% for history in subscriber.recycling_history.all %}
+                    <li>
+                        <strong>Date:</strong> {{ history.date }} |
+                        <strong>Items Recycled:</strong> {{ history.items_recycled }} |
+                        <strong>Points Earned:</strong> {{ history.points_earned }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="balance-section">
+            <h4>Account Balance</h4>
+            <p><strong>Balance:</strong> ${{ subscriber.account_balance.balance }}</p>
+        </div>
+    </div>
+</div>
+<style>
+    .profile-page .container {
+        max-width: 800px;
+        margin: 30px auto;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    .profile-page .header {
+        background-color: #4CAF50;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+    .profile-page .profile-section,
+    .profile-page .history-section,
+    .profile-page .balance-section {
+        padding: 20px;
+        border-bottom: 1px solid #ddd;
+    }
+    .profile-page .profile-section:last-child {
+        border-bottom: none;
+    }
+    .profile-page h1, .profile-page h2 {
+        margin: 0 0 15px;
+    }
+    .profile-page p {
+        margin: 10px 0;
+        line-height: 1.6;
+    }
+    .profile-page ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    .profile-page li {
+        background: #f9f9f9;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+</style>
+{% endblock %}

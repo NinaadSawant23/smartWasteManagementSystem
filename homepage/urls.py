@@ -8,7 +8,10 @@ urlpatterns = [
     path('login/', views.custom_login, name='login'),
     path('works/', views.register, name='works'),
     path('who/', views.who, name='who'),
+    path('schedule/', views.schedule, name='schedule'),
     path('contact/', views.contact_view, name='contact'),
     path('schedule/', views.register, name='schedule'),
+    path('pickuphistory/', views.pickuphistory, name='pickuphistory'),
+    path('profile/', views.profile, name='profile'),
     path('logout/', LogoutView.as_view(next_page='homepage'), name='logout'),
     ]
