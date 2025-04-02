@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Subscriber
+from .models import Subscriber, PickupRequest
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -72,3 +72,13 @@ class ContactForm(forms.Form):
                              widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your Email'}))
     message = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Your Message'}),
                               required=True)
+
+
+class PickupRequestForm(forms.ModelForm):
+    class Meta:
+        model = PickupRequest
+        fields = ['ready_for_pickup', 'num_bags']
+        widgets = {
+            'ready_for_pickup': forms.Select(choices=[(True, 'Yes'), (False, 'No')]),
+            'num_bags': forms.NumberInput(attrs={'min': 0}),
+        }

@@ -5,9 +5,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from django.db import models
-from .forms import ContactForm
+from .forms import ContactForm, PickupRequestForm
 from homepage.forms import UserRegistrationForm
-from .models import ContactSubmission, Subscriber, AccountBalance
+from .models import ContactSubmission, Subscriber, AccountBalance, PickupRequest
 from django.db.models import Sum
 
 
@@ -77,6 +77,42 @@ def contact_view(request):
 
     return render(request, 'contact.html', {'form': form})
 
+
+def contact_success_view(request):
+    return render(request, 'contact_success.html')
+
+@login_required
+def request_pickup(request):
+    user = request.user
+    pickup_request = PickupRequest.objects.filter(user=user).order_by('-created_at').first()
+
+    if pickup_request and pickup_request.status != "Completed":
+        return render(request, 'request.html', {
+            'pickup_request': pickup_request,
+            'form': None,
+            'error_message': "You cannot submit a new pickup request until your current request is completed.",
+        })
+
+    if request.method == "POST":
+        form = PickupRequestForm(request.POST)
+        if form.is_valid():
+            ready_for_pickup = form.cleaned_data['ready_for_pickup']
+            num_bags = form.cleaned_data['num_bags']
+
+            PickupRequest.objects.create(
+                user=user,
+                ready_for_pickup=ready_for_pickup,
+                num_bags=num_bags,
+                status="Pending"
+            )
+            messages.success(request, "Your pickup request has been submitted successfully!")
+            return redirect('request_pickup')
+
+    form = PickupRequestForm()
+    return render(request, 'request.html', {
+        'pickup_request': pickup_request,
+        'form': form,
+    })
 
 @login_required
 def schedule(request):
