@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Request A Pickup | We Can Project
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="p-4 rounded shadow-sm bg-white">
+                <h2 class="mb-4 text-center">Request A Pickup</h2>
+                <form method="post" action="{% url 'request_pickup' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="ready_for_pickup" class="form-label">Are you ready for your bin to be picked up?</label>
+                        {{ form.ready_for_pickup }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="num_bags" class="form-label">How many bags do you need to be picked up?</label>
+                        {{ form.num_bags }}
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success">Submit Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mt-4 mt-lg-0">
+            <div class="p-4 rounded shadow-sm bg-light">
+                <h4 class="mb-3 text-center">Pickup Request Status</h4>
+                <div>
+                    {% if pickup_request %}
+                        <p><strong>Request Date:</strong> {{ pickup_request.created_at|date:"F j, Y g:i A" }}</p>
+                        <p><strong>Status:</strong> {{ pickup_request.status }}</p>
+
+                        {% if pickup_request.status == "Accepted" %}
+                            <div class="alert alert-success mt-3" role="alert">
+                                Our team will be out to pick up your bin on the designated day, depending on the zone of your house.
+                            </div>
+                        {% elif pickup_request.status == "Picked Up" %}
+                            <div class="alert alert-success mt-3" role="alert">
+                                We have successfully picked up your recyclables. We will notify you once we have processed your bags and it is complete. Thank you for recycling with WeCan!
+                            </div>
+                        {% elif pickup_request.status == "Completed" %}
+                            <div class="alert alert-success mt-3" role="alert">
+                                Thank you for using WeCan! Your bin pickup and collection are now complete.
+                                <br>To view your recycling rewards and account balances, please visit your
+                                <a href="{% url 'profile' %}" class="alert-link">Recycling History</a>.
+                                <br>We appreciate your efforts in making a difference for our planet!
+                            </div>
+
+
+                        {% endif %}
+                    {% else %}
+                        <p class="text-muted">No pickup request submitted yet.</p>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
