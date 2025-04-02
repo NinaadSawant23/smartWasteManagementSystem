@@ -13,5 +13,7 @@ urlpatterns = [
     path('schedule/', views.register, name='schedule'),
     path('pickuphistory/', views.pickuphistory, name='pickuphistory'),
     path('profile/', views.profile, name='profile'),
+    path('contact/success/', views.contact_success_view, name='contact_success'),
+    path('request-pickup/', views.request_pickup, name='request_pickup'),
     path('logout/', LogoutView.as_view(next_page='homepage'), name='logout'),
     ]
