@@ -147,5 +147,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'sagvekar799@gmail.com'
-EMAIL_HOST_PASSWORD = 'beoj xakd bgaw xgrp'
+EMAIL_HOST_PASSWORD = 'dbvt yxxq ttma hfss'
 DEFAULT_FROM_EMAIL = 'noreply@wecanmass.org'
