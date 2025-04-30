@@ -36,22 +36,37 @@ SWMS Project - Profile
             <h4>Account Balance</h4>
             <p><strong>Balance:</strong> ${{ subscriber.account_balance.balance }}</p>
         </div>
-             <div class="statistics-section mt-5">
-    <h4 class="text-center mb-4">Your Environmental Impact & Recycling Statistics</h4>
-    <div class="row text-center">
-        <div class="col-md-6">
-            <div class="stat-card p-3 shadow rounded">
-                <h5>Total Items Recycled</h5>
-                <p class="display-5 text-success">{{ total_items }}</p>
-            </div>
-        </div>
-         <div class="col-md-6">
-            <div class="stat-card p-3 shadow rounded">
-                <h5>CO₂ Saved</h5>
-                <p class="display-5 text-success">{{ co2_saved }} kg</p>
-            </div>
+        <div class="statistics-section mt-5">
+      <h4 class="text-center mb-4">Your Environmental Impact & Recycling Statistics</h4>
+     <div class="row text-center">
+    <div class="col-md-6">
+        <div class="stat-card p-3 shadow rounded">
+            <h5>Total Items Recycled</h5>
+            <p class="display-5 text-success">{{ total_items }}</p>
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="stat-card p-3 shadow rounded">
+            <h5>CO₂ Saved</h5>
+            <p class="display-5 text-success">{{ co2_saved }} kg</p>
+        </div>
+    </div>
+</div>
+<div class="row text-center mt-3">
+    <div class="col-md-6">
+        <div class="stat-card p-3 shadow rounded">
+            <h5>Water Saved</h5>
+            <p class="display-5 text-success">{{ water_saved }} Liters</p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="stat-card p-3 shadow rounded">
+            <h5>Energy Saved</h5>
+            <p class="display-5 text-success">{{ energy_saved }} kWh</p>
+        </div>
+    </div>
+</div>
+
 </div>
         <h5 class="text-center mt-5">CO₂ Savings History & Prediction</h5>
 <canvas id="co2Chart" width="600" height="300"></canvas>
