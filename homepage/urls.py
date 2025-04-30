@@ -17,4 +17,5 @@ urlpatterns = [
     path('request-pickup/', views.request_pickup, name='request_pickup'),
     path('logout/', LogoutView.as_view(next_page='homepage'), name='logout'),
     path('driver_dashboard/', views.driver_dashboard, name='driver_dashboard'),
+    path('worker_dashboard/', views.worker_dashboard, name='worker_dashboard'),
     ]

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Subscriber, PickupRequest, Driver
+from .models import Subscriber, PickupRequest, Driver, RedemptionWorker
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -104,3 +104,23 @@ class DriverRegistrationForm(UserCreationForm):
             )
         return user
 
+class RedemptionWorkerRegistrationForm(UserCreationForm):
+    name = forms.CharField(max_length=100, label="Name")
+    phone = forms.CharField(max_length=15, label="Phone Number")
+    email = forms.EmailField(label="Email Address")
+
+    class Meta:
+        model = User
+        fields = ['username', 'name', 'phone', 'email', 'password1', 'password2']
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+            RedemptionWorker.objects.create(
+                linked_account=user,
+                name=self.cleaned_data['name'],
+                phone=self.cleaned_data['phone'],
+                email=self.cleaned_data['email']
+            )
+        return user

@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Subscriber, ContactSubmission, PickupRequest, Driver
+from .models import Subscriber, ContactSubmission, PickupRequest, Driver, RedemptionWorker
 
 admin.site.register(Driver)
+admin.site.register(RedemptionWorker)
 
 @admin.register(Subscriber)
 class SubscriberAdmin(admin.ModelAdmin):

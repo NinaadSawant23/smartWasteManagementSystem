@@ -83,3 +83,12 @@ class Driver(models.Model):
 
     def __str__(self):
         return self.name
+
+class RedemptionWorker(models.Model):
+    linked_account = models.OneToOneField(User, on_delete=models.CASCADE, related_name='worker_profile')
+    name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True, default='abc@gmail.com')
+    phone = models.CharField(max_length=15, default='000-000-000')
+
+    def __str__(self):
+        return self.name
