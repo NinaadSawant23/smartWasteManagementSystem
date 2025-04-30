@@ -2,7 +2,7 @@
 import os
 import django
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'your_project.settings')  # Replace with your settings module
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'swms.settings')  # Replace with your settings module
 django.setup()
 
 from django.contrib.auth import get_user_model
