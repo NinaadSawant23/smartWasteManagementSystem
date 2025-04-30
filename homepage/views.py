@@ -1,11 +1,14 @@
+import json
+
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from django.db import models
-from .forms import ContactForm, PickupRequestForm
+from .forms import ContactForm, PickupRequestForm, DriverRegistrationForm
 from homepage.forms import UserRegistrationForm
 from .models import ContactSubmission, Subscriber, AccountBalance, PickupRequest
 from django.db.models import Sum
@@ -23,19 +26,33 @@ def loginhome(request):
 def register(request):
     role = request.POST.get('role', None)
     subscriber_form = UserRegistrationForm(request.POST or None, request.FILES or None)
+    driver_form = DriverRegistrationForm(request.POST or None)
+    worker_form = RedemptionWorkerRegistrationForm(request.POST or None)
 
     if request.method == 'POST':
         if role == 'Subscriber' and subscriber_form.is_valid():
             subscriber_form.save()
             messages.success(request, "Subscriber account created successfully!")
             return redirect('login')
+
+        elif role == 'Driver' and driver_form.is_valid():
+            driver_form.save()
+            messages.success(request, "Driver account created successfully!")
+            return redirect('login')
+
+        elif role == 'RedemptionCenterWorker' and worker_form.is_valid():
+            worker_form.save()
+            messages.success(request, "Redemption Center Worker account created successfully!")
+            return redirect('login')
+
         else:
             messages.error(request, "Please correct the errors below.")
 
     return render(request, 'register.html', {
-        'subscriber_form': subscriber_form
+        'subscriber_form': subscriber_form,
+        'driver_form': driver_form,
+        'worker_form': worker_form,
     })
-
 
 def who(request):
     return render(request, 'who.html')
@@ -51,15 +68,23 @@ def custom_login(request):
         user = authenticate(username=username, password=password)
 
         if user:
-            login(request, user)
-            return redirect('loginhome')  # Redirect all users to profile page
+            if hasattr(user, 'driver_profile'):
+                login(request, user)
+                return redirect('driver_dashboard')
+
+            elif hasattr(user, 'worker_profile'):
+                login(request, user)
+                return redirect('worker_dashboard')
+
+            else:
+                login(request, user)
+                return redirect('profile')
 
         else:
             messages.error(request, "Invalid username or password. Please try again.")
             return redirect('login')
 
     return render(request, 'login.html', {'form': form})
-
 
 def contact_view(request):
     if request.method == 'POST':
@@ -143,3 +168,62 @@ def profile(request):
 
     return render(request, 'profile.html', {'subscriber': subscriber})
 
+@login_required
+def driver_dashboard(request):
+    if not hasattr(request.user, 'driver_profile'):
+        messages.error(request, "Access denied.")
+        return redirect('login')
+
+    driver = request.user.driver_profile
+
+    # 🛠️  Only fetch pickup requests assigned to this driver!
+    pickup_requests = PickupRequest.objects.filter(status='Accepted', driver=driver)
+
+    scanned_bag_count = 0
+    num_bags = 0
+    selected_pickup_request = None
+
+    if request.method == "POST":
+        data = json.loads(request.body)
+        action = data.get("action")
+        pickup_request_id = data.get("pickup_request_id")
+
+        try:
+            pickup_request = PickupRequest.objects.get(pk=pickup_request_id, driver=driver)
+
+            if action == "add_bag":
+                if pickup_request.scanned_bag_count < pickup_request.num_bags:
+                    pickup_request.scanned_bag_count += 1
+                    pickup_request.save()
+                    return JsonResponse({"success": True, "message": f"Bag {pickup_request.scanned_bag_count} added!"})
+                else:
+                    return JsonResponse({"success": False, "message": "All bags already scanned!"})
+
+            elif action == "mark_picked_up":
+                if pickup_request.scanned_bag_count == pickup_request.num_bags:
+                    pickup_request.status = "Picked Up"
+                    pickup_request.save()
+                    return JsonResponse({"success": True, "message": "Pickup request marked as Picked Up!"})
+                else:
+                    return JsonResponse({"success": False, "message": "Not all bags have been scanned!"})
+
+        except PickupRequest.DoesNotExist:
+            return JsonResponse({"success": False, "message": "Invalid or Unauthorized Pickup Request!"})
+
+    pickup_request_id = request.GET.get("pickup_request_id")
+    if pickup_request_id:
+        try:
+            selected_pickup_request = PickupRequest.objects.get(pk=pickup_request_id, driver=driver)
+            scanned_bag_count = selected_pickup_request.scanned_bag_count
+            num_bags = selected_pickup_request.num_bags
+        except PickupRequest.DoesNotExist:
+            selected_pickup_request = None
+
+    context = {
+        "driver": driver,
+        "pickup_requests": pickup_requests,
+        "scanned_bag_count": scanned_bag_count,
+        "num_bags": num_bags,
+        "selected_pickup_request": selected_pickup_request,
+    }
+    return render(request, "driver_dashboard.html", context)

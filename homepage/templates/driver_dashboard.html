@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Same your styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        h1, h3 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        .summary, .pickup-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+        }
+        label, p {
+            font-size: 16px;
+            color: #333;
+            margin: 8px 0;
+        }
+        input[type="text"], button {
+            padding: 10px;
+            width: 100%;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+    </style>
+
+<!--    <script>-->
+<!--        async function addBag(pickupRequestId) {-->
+<!--            const qrCodeId = document.getElementById('qr_code_id_' + pickupRequestId).value;-->
+
+<!--            const response = await fetch("", {-->
+<!--                method: "POST",-->
+<!--                headers: {-->
+<!--                    "X-CSRFToken": "{{ csrf_token }}",-->
+<!--                    "Content-Type": "application/json"-->
+<!--                },-->
+<!--                body: JSON.stringify({-->
+<!--                    action: "add_bag",-->
+<!--                    qr_code_id: qrCodeId,-->
+<!--                    pickup_request_id: pickupRequestId-->
+<!--                })-->
+<!--            });-->
+<!--            const data = await response.json();-->
+<!--            alert(data.message);-->
+<!--            if (data.success) {-->
+<!--                location.reload();-->
+<!--            }-->
+<!--        }-->
+
+<!--        async function markPickedUp(pickupRequestId) {-->
+<!--            const response = await fetch("", {-->
+<!--                method: "POST",-->
+<!--                headers: {-->
+<!--                    "X-CSRFToken": "{{ csrf_token }}",-->
+<!--                    "Content-Type": "application/json"-->
+<!--                },-->
+<!--                body: JSON.stringify({-->
+<!--                    action: "mark_picked_up",-->
+<!--                    pickup_request_id: pickupRequestId-->
+<!--                })-->
+<!--            });-->
+<!--            const data = await response.json();-->
+<!--            if (data.success) {-->
+<!--                alert("Pickup request marked as Picked Up!");-->
+<!--                location.reload();-->
+<!--            } else {-->
+<!--                alert(data.message || "An error occurred.");-->
+<!--            }-->
+<!--        }-->
+<!--    </script>-->
+</head>
+<body>
+
+<div class="container">
+    <h1>Driver Dashboard</h1>
+
+    <div class="summary">
+        <p><strong>Name:</strong> {{ driver.name }}</p>
+        <p><strong>Email:</strong> {{ driver.email }}</p>
+        <p><strong>Phone:</strong> {{ driver.phone }}</p>
+    </div>
+
+<!--    <h3>Your Assigned Pickup Requests</h3>-->
+
+<!--    {% if pickup_requests %}-->
+<!--        {% for request in pickup_requests %}-->
+<!--            <div class="pickup-card">-->
+<!--                <p><strong>Subscriber:</strong> {{ request.user.subscriber_profile.fname }} {{ request.user.subscriber_profile.lname }}</p>-->
+<!--                <p><strong>Phone:</strong> {{ request.user.subscriber_profile.phone }}</p>-->
+<!--                <p><strong>Address:</strong> {{ request.user.subscriber_profile.street_address }}, {{ request.user.subscriber_profile.city }}, {{ request.user.subscriber_profile.state }} {{ request.user.subscriber_profile.zip_code }}</p>-->
+<!--                <p><strong>Status:</strong> {{ request.status }}</p>-->
+<!--                <p><strong>Bags Scanned:</strong> {{ request.scanned_bag_count }} / {{ request.num_bags }}</p>-->
+
+<!--                <form onsubmit="event.preventDefault(); addBag({{ request.id }});">-->
+<!--                    <label>QR Code ID:-->
+<!--                        <input type="text" id="qr_code_id_{{ request.id }}" value="{{ request.user.subscriber_profile.qr_codes.first.id }}" readonly />-->
+<!--                    </label>-->
+<!--                    <div class="action-buttons">-->
+<!--                        <button type="submit">Add Bag</button>-->
+<!--                        <button type="button" onclick="markPickedUp({{ request.id }})" {% if request.scanned_bag_count != request.num_bags %}disabled{% endif %}>Mark as Picked Up</button>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        {% endfor %}-->
+<!--    {% else %}-->
+<!--        <p class="no-data">No pickup requests assigned to you yet.</p>-->
+<!--    {% endif %}-->
+</div>
+
+</body>
+</html>

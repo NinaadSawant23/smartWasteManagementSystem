@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Subscriber, PickupRequest
+from .models import Subscriber, PickupRequest, Driver
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -82,3 +82,25 @@ class PickupRequestForm(forms.ModelForm):
             'ready_for_pickup': forms.Select(choices=[(True, 'Yes'), (False, 'No')]),
             'num_bags': forms.NumberInput(attrs={'min': 0}),
         }
+
+class DriverRegistrationForm(UserCreationForm):
+    name = forms.CharField(max_length=100, label="Name")
+    phone = forms.CharField(max_length=15, label="Phone Number")
+    email = forms.EmailField(label="Email Address")
+
+    class Meta:
+        model = User
+        fields = ['username', 'name', 'phone', 'email', 'password1', 'password2']
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+            Driver.objects.create(
+                linked_account=user,
+                name=self.cleaned_data['name'],
+                phone=self.cleaned_data['phone'],
+                email=self.cleaned_data['email']
+            )
+        return user
+

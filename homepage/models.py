@@ -74,3 +74,12 @@ class PickupRequest(models.Model):
         Each item is worth 3.22 cents.
         """
         return round(num_items * 0.0322, 2)
+
+class Driver(models.Model):
+    linked_account = models.OneToOneField(User, on_delete=models.CASCADE, related_name='driver_profile')
+    name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True, default='xyz@gmail.com')
+    phone = models.CharField(max_length=15, default='111-000-000')
+
+    def __str__(self):
+        return self.name

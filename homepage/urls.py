@@ -16,4 +16,5 @@ urlpatterns = [
     path('contact/success/', views.contact_success_view, name='contact_success'),
     path('request-pickup/', views.request_pickup, name='request_pickup'),
     path('logout/', LogoutView.as_view(next_page='homepage'), name='logout'),
+    path('driver_dashboard/', views.driver_dashboard, name='driver_dashboard'),
     ]
