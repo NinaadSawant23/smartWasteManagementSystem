@@ -266,7 +266,7 @@ def profile(request):
         model = make_pipeline(PolynomialFeatures(degree), LinearRegression()).fit(X, y)
 
         # Predict next 4 cumulative points
-        future_indexes = np.array([[len(df) + i] for i in range(1, 5)])
+        future_indexes = np.array([[len(df) + i] for i in range(1, 4)])
         predicted_cumulative = model.predict(future_indexes).tolist()
 
         co2_data = df['cumulative_co2_saved'].tolist()
