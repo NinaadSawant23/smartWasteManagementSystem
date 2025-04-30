@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-We Can Project - Profile
+SWMS Project - Profile
 {% endblock %}
 
 {% block content %}
@@ -19,7 +19,8 @@ We Can Project - Profile
             <p><strong>Phone:</strong> {{ subscriber.phone }}</p>
             <p><strong>Account Created On:</strong> {{ subscriber.created_at }}</p>
         </div>
-        <div class="history-section">
+
+           <div class="history-section">
             <h4>Recycling History</h4>
             <ul>
                 {% for history in subscriber.recycling_history.all %}
@@ -35,6 +36,80 @@ We Can Project - Profile
             <h4>Account Balance</h4>
             <p><strong>Balance:</strong> ${{ subscriber.account_balance.balance }}</p>
         </div>
+             <div class="statistics-section mt-5">
+    <h4 class="text-center mb-4">Your Environmental Impact & Recycling Statistics</h4>
+    <div class="row text-center">
+        <div class="col-md-6">
+            <div class="stat-card p-3 shadow rounded">
+                <h5>Total Items Recycled</h5>
+                <p class="display-5 text-success">{{ total_items }}</p>
+            </div>
+        </div>
+         <div class="col-md-6">
+            <div class="stat-card p-3 shadow rounded">
+                <h5>CO₂ Saved</h5>
+                <p class="display-5 text-success">{{ co2_saved }} kg</p>
+            </div>
+        </div>
+    </div>
+</div>
+        <h5 class="text-center mt-5">CO₂ Savings History & Prediction</h5>
+<canvas id="co2Chart" width="600" height="300"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('co2Chart').getContext('2d');
+    const actualData = {{ co2_data|safe }};
+    const predictedData = {{ predicted|safe }};
+    const actualLabels = {{ date_labels|safe }};
+    const predictedLabels = ["Forecast 1", "Forecast 2", "Forecast 3", "Forecast 4"];
+
+    const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: actualLabels.concat(predictedLabels),
+            datasets: [
+                {
+                    label: 'Actual CO₂ Saved (kg)',
+                    data: actualData,
+                    borderColor: '#28a745',
+                    backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                    tension: 0.3,
+                    fill: true,
+                },
+                {
+                    label: 'Predicted CO₂ Saved (kg)',
+                    data: Array(actualData.length - 1).fill(null).concat([actualData[actualData.length - 1]]).concat(predictedData),
+                    borderColor: '#007bff',
+                    backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                    tension: 0.3,
+                    fill: true,
+                    borderDash: [10, 5], // dashed line
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'CO₂ Saved per Request & Forecast'
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            },
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            }
+        }
+    });
+</script>
     </div>
 </div>
 <style>
@@ -58,6 +133,60 @@ We Can Project - Profile
         padding: 20px;
         border-bottom: 1px solid #ddd;
     }
+    .statistics-section {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #e9f7ef;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.impact-statistics-section {
+    background-color: #f8f9fa;
+    padding: 50px 20px;
+    border-radius: 10px;
+    margin-bottom: 50px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.impact-statistics-section h4 {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.impact-stat-card {
+    background: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.impact-stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.impact-stat-card h5 {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #495057;
+}
+
+.impact-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .impact-number {
+        font-size: 2rem;
+    }
+}
+
+
     .profile-page .profile-section:last-child {
         border-bottom: none;
     }
@@ -79,5 +208,39 @@ We Can Project - Profile
         border: 1px solid #ddd;
         border-radius: 4px;
     }
+
+    .impact-statistics-section {
+    background: #f8f9fa;
+    padding: 50px 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 50px;
+}
+
+    .statistics-section {
+        background-color: #f8f9fa;
+        padding: 30px;
+        border-radius: 10px;
+        margin-top: 30px;
+    }
+    .stat-card {
+        background: white;
+        border: 1px solid #dee2e6;
+        margin: 10px;
+        padding: 20px;
+        border-radius: 8px;
+        height: 100%; /* NEW: Ensures all cards same height */
+        display: flex; /* NEW: Center the content properly */
+        flex-direction: column; /* NEW */
+        justify-content: center; /* NEW */
+        align-items: center; /* NEW */
+        transition: transform 0.3s ease;
+    }
+    .stat-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+}
 </style>
 {% endblock %}

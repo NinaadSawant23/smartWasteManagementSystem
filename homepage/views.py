@@ -1,17 +1,24 @@
-import json
-
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
-from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
+from django.contrib.auth.password_validation import validate_password
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-
-from django.db import models
-from .forms import ContactForm, PickupRequestForm, DriverRegistrationForm, RedemptionWorkerRegistrationForm
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.http import JsonResponse
+from sklearn.linear_model import LinearRegression
+import pandas as pd
+import numpy as np
+import json
+from django.core.exceptions import ValidationError
+from .forms import ContactForm, PickupRequestForm, SubscriberUpdateForm, DriverRegistrationForm, RedemptionWorkerRegistrationForm
 from homepage.forms import UserRegistrationForm
-from .models import ContactSubmission, Subscriber, AccountBalance, PickupRequest, RecyclingHistory
+from .models import ContactSubmission, Subscriber, AccountBalance, PickupRequest, RecyclingHistory, Driver
 from django.db.models import Sum
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.pipeline import make_pipeline
+from sklearn.linear_model import LinearRegression
+
 
 
 def home(request):
@@ -21,6 +28,37 @@ def home(request):
 @login_required
 def loginhome(request):
     return render(request, "loginhome.html", {})
+
+
+def services(request):
+    return render(request, 'services.html')
+
+def contact(request):
+    return render(request, 'contact.html')
+
+def resources(request):
+    return render(request, 'resources.html')
+
+def works(request):
+    return render(request, 'works.html')
+
+def policy(request):
+    return render(request, 'policy.html')
+
+def terms(request):
+    return render(request, 'terms.html')
+
+def blog(request):
+    return render(request, 'blog.html')
+
+def faq(request):
+    return render(request, 'faq.html')
+
+def gallery(request):
+    return render(request, 'gallery.html')
+
+def volunteers(request):
+    return render(request, 'volunteers.html')
 
 
 def register(request):
@@ -54,6 +92,7 @@ def register(request):
         'worker_form': worker_form,
     })
 
+
 def who(request):
     return render(request, 'who.html')
 
@@ -85,6 +124,7 @@ def custom_login(request):
             return redirect('login')
 
     return render(request, 'login.html', {'form': form})
+
 
 def contact_view(request):
     if request.method == 'POST':
@@ -124,12 +164,39 @@ def request_pickup(request):
             ready_for_pickup = form.cleaned_data['ready_for_pickup']
             num_bags = form.cleaned_data['num_bags']
 
-            PickupRequest.objects.create(
+            # Create pickup request (temporarily no driver)
+            new_pickup = PickupRequest.objects.create(
                 user=user,
                 ready_for_pickup=ready_for_pickup,
                 num_bags=num_bags,
                 status="Pending"
             )
+
+            # Auto-assign Driver based on ZIP code
+            from random import choice
+            try:
+                subscriber = user.subscriber_profile  # your subscriber linked model
+                user_zip = subscriber.zip_code
+
+                # Check for any existing driver assigned in same zip code
+                existing_pickup = PickupRequest.objects.filter(
+                    user__subscriber_profile__zip_code=user_zip,
+                    driver__isnull=False
+                ).first()
+
+                if existing_pickup:
+                    # Assign same driver
+                    new_pickup.driver = existing_pickup.driver
+                else:
+                    # Assign random driver
+                    available_drivers = Driver.objects.all()
+                    if available_drivers.exists():
+                        new_pickup.driver = choice(available_drivers)
+
+                new_pickup.save()
+            except Exception as e:
+                print(f"Driver assignment failed: {e}")
+
             messages.success(request, "Your pickup request has been submitted successfully!")
             return redirect('request_pickup')
 
@@ -148,15 +215,25 @@ def pickuphistory(request):
     return render(request, 'pickuphistory.html')
 
 
+
+
 @login_required
 def profile(request):
     subscriber = get_object_or_404(Subscriber, account_id=request.user.id)
-
     subscriber.refresh_from_db()
 
-    total_points = subscriber.recycling_history.aggregate(
-        total_points=Sum('points_earned')
-    )['total_points'] or 0
+    recycling_agg = subscriber.recycling_history.aggregate(
+        total_points=Sum('points_earned'),
+        total_items=Sum('items_recycled')
+    )
+
+    total_points = recycling_agg['total_points'] or 0
+    total_items = recycling_agg['total_items'] or 0
+
+    # Environmental impact calculations
+    co2_saved = round(total_items * 0.02, 2)  # kg CO2
+    energy_saved = round(total_items * 0.25, 2)  # kWh
+    water_saved = round(total_items * 3, 2)  # liters
 
     if hasattr(subscriber, 'account_balance'):
         subscriber.account_balance.balance = round(total_points, 2)
@@ -166,7 +243,52 @@ def profile(request):
             subscriber=subscriber, balance=round(total_points, 2)
         )
 
-    return render(request, 'profile.html', {'subscriber': subscriber})
+    # ➕ ML for CO₂ saved history & prediction
+    history_qs = subscriber.recycling_history.order_by('date')
+    data = [{'date': rh.date, 'co2_saved': rh.items_recycled * 0.02} for rh in history_qs]
+    df = pd.DataFrame(data)
+
+    # ➕ ML for CO₂ saved history & prediction
+    history_qs = subscriber.recycling_history.order_by('date')
+    data = [{'date': rh.date, 'co2_saved': rh.items_recycled * 0.02} for rh in history_qs]
+    df = pd.DataFrame(data)
+
+    if not df.empty:
+        df['index'] = range(len(df))
+
+        # NEW: Create cumulative CO2 saved column
+        df['cumulative_co2_saved'] = df['co2_saved'].cumsum()
+
+        X = df[['index']]
+        y = df['cumulative_co2_saved']  # <-- Notice: using cumulative y
+
+        degree = 2
+        model = make_pipeline(PolynomialFeatures(degree), LinearRegression()).fit(X, y)
+
+        # Predict next 4 cumulative points
+        future_indexes = np.array([[len(df) + i] for i in range(1, 5)])
+        predicted_cumulative = model.predict(future_indexes).tolist()
+
+        co2_data = df['cumulative_co2_saved'].tolist()
+        date_labels = df['date'].dt.strftime('%b %d').tolist()
+
+    else:
+        predicted_cumulative = []
+        co2_data = []
+        date_labels = []
+
+    return render(request, 'profile.html', {
+        'subscriber': subscriber,
+        'total_points': total_points,
+        'total_items': total_items,
+        'co2_saved': co2_saved,
+        'energy_saved': energy_saved,
+        'water_saved': water_saved,
+        'co2_data': json.dumps(co2_data),
+        'predicted': json.dumps(predicted_cumulative),
+        'date_labels': json.dumps(date_labels),
+    })
+
 
 @login_required
 def driver_dashboard(request):
@@ -227,6 +349,53 @@ def driver_dashboard(request):
         "selected_pickup_request": selected_pickup_request,
     }
     return render(request, "driver_dashboard.html", context)
+
+
+
+@login_required
+def settings(request):
+    subscriber = Subscriber.objects.filter(account_id=request.user.id).first()
+    if not subscriber:
+        return render(request, "error.html", {"message": "No profile found!"})
+
+    if request.method == 'POST':
+        subscriber_form = SubscriberUpdateForm(request.POST, request.FILES, instance=subscriber)
+
+        if subscriber_form.is_valid():
+            updated_subscriber = subscriber_form.save(commit=False)
+
+            password = subscriber_form.cleaned_data.get('password')
+            confirm_password = subscriber_form.cleaned_data.get('confirm_password')
+
+            if password:
+                if password == confirm_password:
+                    try:
+                        validate_password(password, user=subscriber.linked_account)
+                        subscriber.linked_account.set_password(password)
+                        subscriber.linked_account.save()
+                    except ValidationError as e:
+                        messages.error(request, f"Password error: {e}")
+                        return render(request, 'settings.html', {'subscriber_form': subscriber_form})
+                else:
+                    messages.error(request, "Passwords do not match.")
+                    return render(request, 'settings.html', {'subscriber_form': subscriber_form})
+
+            updated_subscriber.save()
+            messages.success(request, "Your changes have been saved successfully!")
+            return redirect('settings')
+
+        else:
+            for field, errors in subscriber_form.errors.items():
+                messages.error(request, f"{field}: {errors[0]}")
+                break
+
+    else:
+        subscriber_form = SubscriberUpdateForm(instance=subscriber)
+
+    context = {
+        'subscriber_form': subscriber_form,
+    }
+    return render(request, 'settings.html', context)
 
 @login_required
 def worker_dashboard(request):
@@ -363,3 +532,4 @@ def worker_dashboard(request):
         'scanned_bags': scanned_bags,
         'total_points': total_points,
     })
+

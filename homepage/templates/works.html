@@ -1,0 +1,321 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    How It Works | SWMS
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">How It Works</h1>
+
+    <div class="card p-4 shadow-sm mb-5">
+        <div class="card-body">
+            <p><strong>Residents of Central Massachusetts</strong> can now recycle with ease using the <strong>SWMS</strong> mobile redemption service. No more hassle of transporting bags of cans and bottles to distant redemption centers. Our service brings recycling right to your doorstep!</p>
+
+            <p>We provide <strong>collection bins</strong> for your convenience. With these, you can sort your redeemable containers, including aluminum cans and glass bottles. Just <strong>schedule a pickup</strong> through our app, place your items out for collection, and you're all set. We'll handle the collection and processing, making recycling effortless for you.</p>
+
+            <p>Our processing center <strong>schedules drivers</strong> to collect at your chosen time. Your items are then recycled within 24 hours of pickup. We sort your items, calculate your redemption based on Massachusetts rates, and process your payment. You can choose to receive your redemption funds electronically or as a mailed check, with a small service fee to support our operations.</p>
+        </div>
+    </div>
+
+    <div class="text-center mt-4 mb-5">
+        <a href="{% url 'services' %}" class="btn custom-btn">
+            Learn More About Accepted Containers
+        </a>
+    </div>
+
+    <div class="row text-center mb-5">
+        <div class="col-md-4 d-flex flex-column align-items-center">
+            <img src="{% static 'img/step1.png' %}" class="img-fluid rounded mb-3 uniform-image" alt="Receive Your Collection Bin">
+            <p class="font-weight-bold">Receive Your Collection Bin</p>
+        </div>
+        <div class="col-md-4 d-flex flex-column align-items-center">
+            <img src="{% static 'img/step2.png' %}" class="img-fluid rounded mb-3 uniform-image" alt="Schedule Your Collection">
+            <p class="font-weight-bold">Schedule Your Collection</p>
+        </div>
+        <div class="col-md-4 d-flex flex-column align-items-center">
+            <img src="{% static 'img/step3a.png' %}" class="img-fluid rounded mb-3 uniform-image" alt="Enjoy Your Doorstep Pickup">
+            <p class="font-weight-bold">Enjoy Your Doorstep Pickup</p>
+        </div>
+    </div>
+</div>
+
+    <div id="stepsCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#stepsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#stepsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#stepsCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#stepsCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        </div>
+
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="slide-content d-flex flex-column justify-content-center align-items-center text-center p-5">
+                    <h2>Step One</h2>
+                    <h5>Receive Your Collection Bin</h5>
+                    <p>We provide you with a collection bin to make sorting your recyclables easy and organized.</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="slide-content d-flex flex-column justify-content-center align-items-center text-center p-5">
+                    <h2>Step Two</h2>
+                    <h5>Fill Your Collection Bin</h5>
+                    <p>Place your eligible recyclable materials into the collection bin. Ensure that all items are properly emptied of any liquids and meet our recycling guidelines.</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="slide-content d-flex flex-column justify-content-center align-items-center text-center p-5">
+                    <h2>Step Three</h2>
+                    <h5>Schedule Your Pickup</h5>
+                    <p>Use our app to schedule a convenient pickup time. Please ensure your collection bin is placed on your property and not on any public Worcester roads or sidewalks.</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="slide-content d-flex flex-column justify-content-center align-items-center text-center p-5">
+                    <h2>Step Four</h2>
+                    <h5>Enjoy Your Doorstep Pickup</h5>
+                    <p>Our team will pick up your recyclables from your designated spot and ensure they're processed efficiently.</p>
+                </div>
+            </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#stepsCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#stepsCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Have Questions? We're Here to Help!</h2>
+        <p class="text-center mb-5">Here are answers to some of our most commonly asked questions. If you don’t see your question here, feel free to reach out, and we’ll be happy to help.</p>
+
+        <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faqHeading1">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1">
+                        What cities do you provide service?
+                    </button>
+                </h2>
+                <div id="faqCollapse1" class="accordion-collapse collapse" aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        We currently offer our services to several cities within Central Massachusetts, including Worcester and surrounding areas.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faqHeading2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                        Is there a limit to how much you will pick up?
+                    </button>
+                </h2>
+                <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <!--Answer here-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faqHeading3">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                        Can my aluminum cans and water bottles be crushed?
+                    </button>
+                </h2>
+                <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <!--Answer here-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faqHeading4">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                        How much do I get paid for my recycling?
+                    </button>
+                </h2>
+                <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <!--Answer here-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="schedule-pickup-section text-center text-white">
+        <div class="container py-5">
+            <h2 class="display-4 mb-3">Schedule a Pickup!</h2>
+            <p class="lead mb-4">
+                Residents of Central Massachusetts - Schedule a pickup with WeCan LLC to have your recyclable materials collected right from your doorstep. Enjoy the convenience of recycling at home while contributing to a greener community. Payments are processed promptly upon collection!
+            </p>
+            <a href="{% url 'schedule' %}" class="btn btn-lg schedule-btn">SCHEDULE PICKUP!</a>
+        </div>
+    </div>
+    <br>
+    <br>
+
+<style>
+    .card {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+    .card-body p {
+        color: #555;
+        font-size: 1.1em;
+        margin-bottom: 1em;
+    }
+    h1 {
+        color: #2c3e50;
+    }
+
+    .custom-btn {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .custom-btn:hover {
+        background-color: #218838;
+        color: #fff;
+    }
+
+    .custom-btn:focus, .custom-btn:active {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .uniform-image {
+        height: 200px;
+        object-fit: contain;
+    }
+
+    .slide-content {
+        background-color: #f8f9fa;
+        color: #2c3e50;
+        min-height: 300px;
+        border-radius: 8px;
+        padding: 40px;
+    }
+
+    .carousel-item h2 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .carousel-item h5 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .carousel-item p {
+        font-size: 1rem;
+        max-width: 600px;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: #218838;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        background-size: 50%;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .carousel-control-prev-icon {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M4.5 0L0 4l4.5 4V5h3V3h-3V0z'/%3E%3C/svg%3E");
+    }
+
+    .carousel-control-next-icon {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M3.5 0l4.5 4-4.5 4V5H0V3h3.5V0z'/%3E%3C/svg%3E");
+    }
+
+    .carousel-indicators [data-bs-target] {
+        background-color: #ccc;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+
+    .carousel-indicators .active {
+        background-color: #218838;
+    }
+
+    .accordion-button {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .accordion-button:not(.collapsed) {
+        color: #218838;
+        background-color: #f8f9fa;
+    }
+
+    .accordion-button::after {
+        font-size: 1.2rem;
+    }
+
+    .accordion-body {
+        font-size: 1rem;
+        color: #555;
+    }
+
+    .schedule-pickup-section {
+        background: url("{% static 'img/background2.png' %}") no-repeat center center;
+        background-size: cover;
+        position: relative;
+        color: white;
+    }
+
+    .schedule-pickup-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+
+    .schedule-pickup-section .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .schedule-btn {
+        background-color: #28a745;
+        color: white;
+        font-weight: bold;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .schedule-btn:hover {
+        background-color: #218838;
+        color: white;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

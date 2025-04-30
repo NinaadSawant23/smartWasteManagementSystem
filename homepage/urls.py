@@ -1,12 +1,17 @@
 from django.urls import path
 from homepage import views
 from django.contrib.auth.views import LogoutView
+
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path("", views.home, name='homepage'),
     path("loginhome",views.loginhome, name='loginhome'),
     path('register/', views.register, name='register'),
+    path('services/', views.services, name='services'),
     path('login/', views.custom_login, name='login'),
-    path('works/', views.register, name='works'),
+    path('works/', views.works, name='works'),
     path('who/', views.who, name='who'),
     path('schedule/', views.schedule, name='schedule'),
     path('contact/', views.contact_view, name='contact'),
@@ -18,4 +23,8 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='homepage'), name='logout'),
     path('driver_dashboard/', views.driver_dashboard, name='driver_dashboard'),
     path('worker_dashboard/', views.worker_dashboard, name='worker_dashboard'),
+    path('settings/', views.settings, name='settings'),
     ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

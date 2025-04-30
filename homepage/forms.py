@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
+from django.contrib.auth.password_validation import validate_password
+
 from .models import Subscriber, PickupRequest, Driver, RedemptionWorker
 
 
@@ -83,6 +86,7 @@ class PickupRequestForm(forms.ModelForm):
             'num_bags': forms.NumberInput(attrs={'min': 0}),
         }
 
+
 class DriverRegistrationForm(UserCreationForm):
     name = forms.CharField(max_length=100, label="Name")
     phone = forms.CharField(max_length=15, label="Phone Number")
@@ -124,3 +128,62 @@ class RedemptionWorkerRegistrationForm(UserCreationForm):
                 email=self.cleaned_data['email']
             )
         return user
+
+class SubscriberUpdateForm(forms.ModelForm):
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'New Password'}),
+        required=False,
+        label="New Password"
+    )
+    confirm_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'Confirm New Password'}),
+        required=False,
+        label="Confirm Password"
+    )
+
+    class Meta:
+        model = Subscriber
+        fields = [
+            'fname', 'lname', 'email', 'phone', 'street_address', 'city', 'state',
+            'zip_code', 'payment_method'
+        ]
+        widgets = {
+            'state': forms.Select(choices=[(state, state) for state in [
+                'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY',
+                'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND',
+                'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
+            ]]),
+            'payment_method': forms.Select(choices=[
+                ('cashapp', 'CashApp'),
+                ('venmo', 'Venmo'),
+                ('zelle', 'Zelle'),
+            ]),
+        }
+
+    def clean_zip_code(self):
+        zip_code = self.cleaned_data.get('zip_code')
+        if not zip_code.isdigit() or len(zip_code) != 5:
+            raise forms.ValidationError("Enter a valid 5-digit ZIP code.")
+        return zip_code
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if Subscriber.objects.filter(email=email).exclude(account_id=self.instance.account_id).exists():
+            raise forms.ValidationError("This email is already registered.")
+        return email
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        confirm_password = cleaned_data.get('confirm_password')
+
+        if password:
+            try:
+                validate_password(password, user=self.instance.linked_account)
+            except ValidationError as e:
+                self.add_error('password', e)
+
+            if password != confirm_password:
+                self.add_error('confirm_password', "Passwords do not match.")
+
+        return cleaned_data

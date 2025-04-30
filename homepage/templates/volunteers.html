@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Volunteers | SWMS
+{% endblock %}
+
+{% block content %}
+    <div class="container1">
+        <h2>Join SWMS as a Volunteer</h2>
+        <p>Make a difference by contributing to a cleaner, greener environment. Join our volunteer program and help with recycling efforts, community events, and awareness campaigns.</p>
+
+        <div class="benefits">
+            <h3>Benefits of Volunteering</h3>
+            <ul>
+                <li>Contribute to environmental sustainability</li>
+                <li>Gain community service experience</li>
+                <li>Meet like-minded people</li>
+                <li>Enhance your leadership and teamwork skills</li>
+            </ul>
+        </div>
+
+        <h3>Sign Up as a Volunteer</h3>
+        <form class="volunteer-form">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <input type="text" name="phone" placeholder="Your Phone Number" required>
+            <button type="button">Join Now</button>
+        </form>
+    </div>
+
+{% endblock %}
+{% block styles %}
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container1 {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #2c3e50;
+        }
+        p {
+            line-height: 1.6;
+        }
+        .benefits {
+            text-align: left;
+            margin: 20px 0;
+        }
+        .benefits ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .volunteer-form {
+            margin-top: 20px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #219150;
+        }
+    </style>
+{% endblock %}

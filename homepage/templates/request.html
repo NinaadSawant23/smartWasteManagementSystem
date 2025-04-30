@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Request A Pickup | We Can Project
+    Request A Pickup | SWMS Project
 {% endblock %}
 
 {% block content %}
@@ -43,11 +43,11 @@
                             </div>
                         {% elif pickup_request.status == "Picked Up" %}
                             <div class="alert alert-success mt-3" role="alert">
-                                We have successfully picked up your recyclables. We will notify you once we have processed your bags and it is complete. Thank you for recycling with WeCan!
+                                We have successfully picked up your recyclables. We will notify you once we have processed your bags and it is complete. Thank you for recycling with SWMS!
                             </div>
                         {% elif pickup_request.status == "Completed" %}
                             <div class="alert alert-success mt-3" role="alert">
-                                Thank you for using WeCan! Your bin pickup and collection are now complete.
+                                Thank you for using SWMS! Your bin pickup and collection are now complete.
                                 <br>To view your recycling rewards and account balances, please visit your
                                 <a href="{% url 'profile' %}" class="alert-link">Recycling History</a>.
                                 <br>We appreciate your efforts in making a difference for our planet!

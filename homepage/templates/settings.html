@@ -1,0 +1,305 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+My Account Information
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">My Account Information</h1>
+   <form method="post" enctype="multipart/form-data" action="">
+    {% csrf_token %}
+    <div class="table-responsive">
+        <table class="table table-borderless">
+            <tbody>
+             <!-- Profile Picture -->
+<!--                    <tr>-->
+<!--                        <th style="vertical-align: middle;">Profile Picture:</th>-->
+<!--                        <td>-->
+<!--                            {% if subscriber_form.instance.profile_picture %}-->
+<!--                                <img src="{{ subscriber_form.instance.profile_picture.url }}" alt="Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">-->
+<!--                            {% else %}-->
+<!--                                <p>No profile picture uploaded</p>-->
+<!--                            {% endif %}-->
+<!--                                {{ subscriber_form.profile_picture.as_widget }}-->
+<!--                        </td>-->
+<!--                    </tr>-->
+                <tr>
+                    <th>Account Number:</th>
+                    <td>{{ user.id }}</td>
+                </tr>
+                <tr>
+                    <th>Email Address / Login:</th>
+                    <td>
+                        {{ subscriber_form.email }}
+                        {% for error in subscriber_form.email.errors %}
+                        <div class="text-danger small">{{ error }}</div>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>First Name:</th>
+                    <td>
+                        {{ subscriber_form.fname }}
+                        {% for error in subscriber_form.fname.errors %}
+                        <div class="text-danger small">{{ error }}</div>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Last Name:</th>
+                    <td>
+                        {{ subscriber_form.lname }}
+                        {% for error in subscriber_form.lname.errors %}
+                        <div class="text-danger small">{{ error }}</div>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Phone:</th>
+                    <td>
+                        {{ subscriber_form.phone }}
+                        {% for error in subscriber_form.phone.errors %}
+                        <div class="text-danger small">{{ error }}</div>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Street Address:</th>
+                    <td>
+                        {{ subscriber_form.street_address }}
+                        {% for error in subscriber_form.street_address.errors %}
+                        <div class="text-danger small">{{ error }}</div>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>City:</th>
+                    <td>
+                        {{ subscriber_form.city }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>State:</th>
+                    <td>
+                        {{ subscriber_form.state }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Zip Code:</th>
+                    <td>
+                        {{ subscriber_form.zip_code }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Payment Method:</th>
+                    <td>
+                        {{ subscriber_form.payment_method }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Password:</th>
+                    <td>
+                        {{ subscriber_form.password }}
+                        {% for error in subscriber_form.password.errors %}
+                        <div class="text-danger small">{{ error }}</div>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Confirm Password:</th>
+                    <td>
+                        {{ subscriber_form.confirm_password }}
+                        {% for error in subscriber_form.confirm_password.errors %}
+                        <div class="text-danger small">{{ error }}</div>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-end mt-3">
+        <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+    </div>
+</form>
+    <div class="charity-section">
+    <h2 class="charity-title">Donate to Charity</h2>
+
+    <!-- Charity 1: Jeremiah’s Inn -->
+    <div class="charity-card">
+        <div class="charity-logo">
+            <img src="{% static 'img/JeremiahsInnLogo.jpg' %}" alt="Jeremiah’s Inn Logo">
+        </div>
+        <div class="charity-content">
+            <h3>Jeremiah’s Inn</h3>
+            <p>Jeremiah's Inn uses a social model to provide services related to nutrition, substance abuse, and homelessness, helping to empower men towards independence and wellness.</p>
+            <a href="https://www.jeremiahsinn.org/" class="read-more-link" target="_blank">Read More</a>
+        </div>
+    </div>
+
+    <!-- Charity 2: Salvation Army Worcester -->
+    <div class="charity-card">
+        <div class="charity-logo">
+            <img src="{% static 'img/Salvation Army.png' %}" alt="Salvation Army Worcester Logo">
+        </div>
+        <div class="charity-content">
+            <h3>Salvation Army Worcester</h3>
+            <p>The Salvation Army Worcester provides community support, food, clothing, and emergency shelter to individuals and families in need across Worcester County.</p>
+            <a href="https://massachusetts.salvationarmy.org/MA/Worcester" class="read-more-link" target="_blank">Read More</a>
+        </div>
+    </div>
+
+    <!-- Charity 3: CENTRO Inc -->
+    <div class="charity-card">
+        <div class="charity-logo">
+            <img src="{% static 'img/Centro.png' %}" alt="CENTRO Inc Logo">
+        </div>
+        <div class="charity-content">
+            <h3>CENTRO Inc</h3>
+            <p>CENTRO is Worcester's largest minority-led nonprofit, supporting the Latinx community with access to health, education, and social services to achieve self-sufficiency.</p>
+            <a href="https://www.centroinc.org/" class="read-more-link" target="_blank">Read More</a>
+        </div>
+    </div>
+
+    <!-- Charity 4: Inner Voice Outer Change -->
+    <div class="charity-card">
+        <div class="charity-logo">
+            <img src="{% static 'img/IVOC.jpeg' %}" alt="Inner Voice Outer Change Logo">
+        </div>
+        <div class="charity-content">
+            <h3>Inner Voice Outer Change</h3>
+            <p>Inner Voice Outer Change focuses on personal development and mental wellness through community-based workshops and programs for youth and adults.</p>
+            <a href="https://innervoiceouterchange.org/" class="read-more-link" target="_blank">Read More</a>
+        </div>
+    </div>
+
+    <!-- Charity 5: Boys & Girls Club Worcester -->
+    <div class="charity-card">
+        <div class="charity-logo">
+            <img src="{% static 'img/BGCW.jpeg' %}" alt="Boys & Girls Club Worcester Logo">
+        </div>
+        <div class="charity-content">
+            <h3>Boys & Girls Club Worcester</h3>
+            <p>The Boys & Girls Club of Worcester supports youth with afterschool activities, sports, and educational programs aimed at promoting success and leadership.</p>
+            <a href="https://www.bgcworcester.org/" class="read-more-link" target="_blank">Read More</a>
+        </div>
+    </div>
+
+    <!-- Charity 6: Girls Inc Worcester -->
+    <div class="charity-card">
+        <div class="charity-logo">
+            <img src="{% static 'img/girlsinworc.png' %}" alt="Girls Inc Worcester Logo">
+        </div>
+        <div class="charity-content">
+            <h3>Girls Inc Worcester</h3>
+            <p>Girls Inc. Worcester empowers girls and young women with life skills, education, and mentorship to become strong, smart, and bold leaders in their community.</p>
+            <a href="https://www.girlsincworcester.org/" class="read-more-link" target="_blank">Read More</a>
+        </div>
+    </div>
+
+    <!-- Charity 7: Worcester Animal Rescue League -->
+    <div class="charity-card">
+        <div class="charity-logo">
+            <img src="{% static 'img/WARL.png' %}" alt="Worcester Animal Rescue League Logo">
+        </div>
+        <div class="charity-content">
+            <h3>Worcester Animal Rescue League</h3>
+            <p>The Worcester Animal Rescue League provides shelter and adoption services for animals, advocating for the humane treatment and welfare of all animals in Worcester.</p>
+            <a href="https://worcesterarl.org/" class="read-more-link" target="_blank">Read More</a>
+        </div>
+    </div>
+</div>
+</div>
+
+<style>
+    .table th {
+        text-align: left;
+        width: 30%;
+    }
+    .table td input, .table td select, .table td textarea {
+        width: 100%;
+    }
+    .table-borderless th, .table-borderless td {
+        padding: 8px 12px;
+        border-top: none;
+    }
+     .charity-section {
+        padding: 50px 20px;
+        background-color: #f9f9f9;
+    }
+
+    .charity-title {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .charity-card {
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        padding: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .charity-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .charity-logo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        flex-shrink: 0;
+        margin-right: 20px;
+    }
+
+    .charity-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .charity-content {
+        flex: 1;
+    }
+
+    .charity-content h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .charity-content p {
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .read-more-link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .read-more-link:hover {
+        text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+    .charity-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .charity-logo {
+        margin-bottom: 20px;
+    }
+}
+</style>
+{% endblock %}

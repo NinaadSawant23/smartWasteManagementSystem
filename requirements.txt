@@ -1,0 +1,31 @@
+# Django framework
+Django==5.1.2
+
+# Environment variable management
+django-environ==0.9.0
+
+# PostgreSQL adapter for Django
+psycopg2-binary==2.9.7
+
+# Production server for Django
+gunicorn==20.1.0
+
+# Static files support
+whitenoise==6.4.0
+
+# Image processing for profile pictures and QR
+Pillow==9.4.0
+
+# QR code generation library
+qrcode[pil]==7.3.1
+
+# For chatbot API interaction or webhook-based chatbot logic
+flask==3.0.2
+requests==2.31.0
+
+# For machine learning and statistics
+numpy==1.26.4
+pandas==2.2.2
+scikit-learn==1.4.2
+matplotlib==3.8.4
+seaborn==0.13.2
