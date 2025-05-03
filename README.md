@@ -10,7 +10,6 @@
 A full-stack platform to help communities and organizations streamline waste collection and recycling. This project enables users to schedule pickups, tracks recycling activity, calculates environmental impact (CO₂ savings), and includes an AI-powered chatbot for assistance — all while rewarding users through a points-based system aligned with Massachusetts Bottle Bill regulations.
 
 > ♻️ Making sustainable waste management smarter, measurable, and accessible for everyone.
-
 ---
 
 ## 🚀 Key Features
@@ -76,7 +75,6 @@ python manage.py runserver
 ```
 
 ## 📊 ML Model – CO₂ Impact Predictor
-- 📍 Location: ml/co2_predictor.py
 - 🧠 Algorithm: Logistic Regression (Scikit-learn)
 - 🔢 Inputs: Number of items recycled, pickup frequency, bag count
 - 📈 Output: Projected CO₂ emissions savings
