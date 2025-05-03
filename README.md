@@ -20,7 +20,7 @@ A full-stack platform to help communities and organizations streamline waste col
 - 🚚 **Driver Dashboard** – View and update pickup status.
 - 🏭 **Redemption Worker Role** – Track and process recyclable materials and credit allocation.
 - 📬 **Automated Email Notifications** – For request approval, driver assignment, and status updates.
-- 💬 **AI Chatbot** – Built using Dialogflow for real-time assistance.
+- 💬 **AI Chatbot** – Built using Landbot.io for real-time assistance.
 - 📊 **User Dashboard** – Includes:
   - Pickup History
   - Items Recycled
@@ -81,16 +81,8 @@ python manage.py runserver
 - 🔢 Inputs: Number of items recycled, pickup frequency, bag count
 - 📈 Output: Projected CO₂ emissions savings
 
-To retrain:
-``` bash
-python ml/train_model.py
-```
 
 ## 👥 Contributors
 - Ninaad Sawant – Backend & Machine Learning
 - Gitesh Sagvekar – Frontend & Chatbot
 - Deepika Konda – Full-Stack Integration
-
-## 📜 License
-This project is licensed under the MIT License.
-See the LICENSE file for details.
