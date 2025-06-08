@@ -12,6 +12,18 @@ A full-stack platform to help communities and organizations streamline waste col
 > ♻️ Making sustainable waste management smarter, measurable, and accessible for everyone.
 ---
 
+## Screenshots
+
+- Carbon Savings Prediction Report:
+
+![Project Screenshot](/screenshot/CarbonSavingsPrediction.png)
+- Statistics:
+
+![Project Screenshot](/screenshot/Statistics.jpeg)
+- Chabot:
+
+![Project Screenshot](/screenshot/LandBotAI.png)
+
 ## 🚀 Key Features
 
 - 🗑️ **User Pickup Scheduling** – Schedule garbage pickups by ZIP code and number of bags.
