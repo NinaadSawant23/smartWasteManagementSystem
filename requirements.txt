@@ -8,7 +8,7 @@ django-environ==0.9.0
 psycopg2-binary==2.9.7
 
 # Production server for Django
-gunicorn==20.1.0
+gunicorn==22.0.0
 
 # Static files support
 whitenoise==6.4.0
